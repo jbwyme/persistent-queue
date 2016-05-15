@@ -4,7 +4,7 @@ A simple client-side queue that persists between page loads using different stor
 `npm install --save persistent-queue`
 
 ### Usage
-```
+```javascript
 const queue = new Queue('name');
 queue.add('some item');
 const item = queue.next();
