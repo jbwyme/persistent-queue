@@ -31,6 +31,8 @@ babelHelpers.createClass = function () {
 
 babelHelpers;
 
+/* no-console: false */
+
 var Logger = function () {
   function Logger(options) {
     babelHelpers.classCallCheck(this, Logger);
@@ -42,7 +44,9 @@ var Logger = function () {
     key: "log",
     value: function log() {
       if (this._options.debug) {
+        /* eslint-disable no-console */
         console.log(arguments);
+        /* eslint-enable no-console */
       }
     }
   }]);
@@ -60,7 +64,7 @@ var PersistentStore = function () {
     babelHelpers.classCallCheck(this, PersistentStore);
 
     if (existingNamespaces[namespace]) {
-      throw new Error('Namespace "' + namespace + '" already exists');
+      throw new Error('Namespace \'' + namespace + '\' already exists');
     } else {
       existingNamespaces[namespace] = true;
     }
@@ -102,8 +106,8 @@ var PersistentStore = function () {
     value: function _createCookie(key, value, exp) {
       var date = new Date();
       date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
-      var expires = "; expires=" + date.toGMTString();
-      document.cookie = key + "=" + value + expires + "; path=/";
+      var expires = '; expires=' + date.toGMTString();
+      document.cookie = key + '=' + value + expires + '; path=/';
     }
   }, {
     key: '_localStorageAvailable',
@@ -127,7 +131,7 @@ var PersistentStore = function () {
   }, {
     key: '_readCookie',
     value: function _readCookie(key) {
-      var nameEQ = key + "=";
+      var nameEQ = key + '=';
       var ca = document.cookie.split(';');
       for (var i = 0, max = ca.length; i < max; i++) {
         var c = ca[i];
@@ -157,12 +161,10 @@ var PersistentStore = function () {
       }
 
       try {
-        data = JSON.parse(data);
+        return JSON.parse(data);
       } catch (e) {
-        data = data;
+        return data;
       }
-
-      return data;
     }
   }, {
     key: 'set',
@@ -275,7 +277,7 @@ var Queue = function () {
           this.logger.log('Returning item ' + item.id + ' from queue');
           return item;
         }
-      };
+      }
       return null;
     }
   }, {
