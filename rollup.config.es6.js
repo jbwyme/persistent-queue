@@ -7,8 +7,8 @@ export default {
   plugins: [
     babel({
       babelrc: false,
-      exclude: 'node_modules/**',
+      ignore: ['node_modules/**', 'src/json2'],
       presets: ['es2015-rollup']
-    })
+    }),
   ]
 };
