@@ -28,7 +28,7 @@ export default class Queue {
   }
 
   _locked(item) {
-    return !!this._locks[item.id]
+    return !!this._locks[item.id];
   }
 
   _persist() {
@@ -53,20 +53,20 @@ export default class Queue {
   }
 
   next() {
-    for(var i = 0; i < this._queue.length; i++) {
+    for (var i = 0; i < this._queue.length; i++) {
       const item = this._queue[i];
       if (!this._locked(item)) {
         this._lock(item);
         this.logger.log('Returning item ' + item.id + ' from queue');
         return item;
       }
-    };
+    }
     return null;
   }
 
   remove(item) {
     if (!this._locked(item)) {
-      throw new Error('ItemNotLocked')
+      throw new Error('ItemNotLocked');
     } else {
       for (var i = 0; i < this._queue.length; i++) {
         if (item.id === this._queue[i].id) {

@@ -1,3 +1,4 @@
+/* globals afterEach, describe, it */
 import { expect } from 'chai';
 import sinon from 'sinon';
 
@@ -17,7 +18,7 @@ describe('Queue', () => {
       expect(queue.size()).to.equal(0);
       const added = queue.add('test item');
       expect(queue.size()).to.equal(1);
-      const item = queue.next()
+      const item = queue.next();
       expect(item).to.equal(added);
     });
 
@@ -37,7 +38,7 @@ describe('Queue', () => {
     it('Should clear the queue', () => {
       queue.add('test item');
       expect(queue.size()).to.equal(1);
-      queue.clear()
+      queue.clear();
       expect(queue.size()).to.equal(0);
     });
 
@@ -102,7 +103,7 @@ describe('Queue', () => {
     });
 
     it('Should persist the new queue state', () => {
-      const added = queue.add('test item');
+      queue.add('test item');
       queue._persist.reset();
       queue.remove(queue.next());
       expect(queue._persist.calledOnce).to.equal(true);
@@ -113,9 +114,10 @@ describe('Queue', () => {
       sinon.spy(queue, 'remove');
       try {
         queue.remove(added);
-      } catch(e) {
-      };
-      expect(queue.remove.threw('ItemNotLocked'))
+      } catch (e) {
+        // noop
+      }
+      expect(queue.remove.threw('ItemNotLocked'));
     });
   });
 

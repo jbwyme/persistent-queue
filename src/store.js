@@ -8,7 +8,7 @@ const STORAGE_TYPE_MEMORY = 'memory';
 export default class PersistentStore {
   constructor(namespace, options = {}) {
     if (existingNamespaces[namespace]) {
-      throw new Error(`Namespace "${namespace}" already exists`);
+      throw new Error(`Namespace '${namespace}' already exists`);
     } else {
       existingNamespaces[namespace] = true;
     }
@@ -43,16 +43,16 @@ export default class PersistentStore {
    * @param  exp       Expiration - creation defaults to 30 days
    */
   _createCookie(key, value, exp) {
-      var date = new Date();
-      date.setTime(date.getTime() + (exp * 24 * 60 * 60 * 1000));
-      var expires = "; expires=" + date.toGMTString();
-      document.cookie = key + "=" + value + expires + "; path=/";
+    var date = new Date();
+    date.setTime(date.getTime() + (exp * 24 * 60 * 60 * 1000));
+    var expires = '; expires=' + date.toGMTString();
+    document.cookie = key + '=' + value + expires + '; path=/';
   }
 
   _localStorageAvailable() {
     try {
       var storage = window['localStorage'],
-          x = '__storage_test__';
+        x = '__storage_test__';
       storage.setItem(x, x);
       storage.removeItem(x);
       return true;
@@ -66,20 +66,20 @@ export default class PersistentStore {
    * @param  key       The key or identifier for the store
    */
   _readCookie(key) {
-      var nameEQ = key + "=";
-      var ca = document.cookie.split(';');
-      for (var i = 0, max = ca.length; i < max; i++) {
-          var c = ca[i];
-          while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-          if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-      }
-      return null;
+    var nameEQ = key + '=';
+    var ca = document.cookie.split(';');
+    for (var i = 0, max = ca.length; i < max; i++) {
+      var c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
   }
 
   get(key) {
     key = this._namespace + '_' + key;
     var data;
-    switch(this._storageType) {
+    switch (this._storageType) {
       case STORAGE_TYPE_LOCAL_STORAGE:
         data = localStorage.getItem(key);
         break;
@@ -94,19 +94,17 @@ export default class PersistentStore {
     }
 
     try {
-       data = JSON.parse(data);
+      return JSON.parse(data);
     } catch (e) {
-       data = data;
+      return data;
     }
-
-    return data;
   }
 
   set(key, value) {
     key = this._namespace + '_' + key;
     this.logger.log('set', key, value);
     if (value === null) {
-      switch(this._storageType) {
+      switch (this._storageType) {
         case STORAGE_TYPE_LOCAL_STORAGE:
           localStorage.removeItem(key);
           break;
@@ -124,7 +122,7 @@ export default class PersistentStore {
         value = JSON.stringify(value);
       }
 
-      switch(this._storageType) {
+      switch (this._storageType) {
         case STORAGE_TYPE_LOCAL_STORAGE:
           localStorage.setItem(key, value);
           break;
@@ -139,4 +137,4 @@ export default class PersistentStore {
       }
     }
   }
-};
+}

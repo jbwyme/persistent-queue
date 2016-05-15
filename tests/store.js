@@ -1,6 +1,6 @@
+/* globals beforeEach, describe, it */
 import { expect } from 'chai';
 import jsdom from 'mocha-jsdom';
-import sinon from 'sinon';
 
 import PersistentStore from '../src/store';
 
