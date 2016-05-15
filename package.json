@@ -2,7 +2,8 @@
   "name": "persistent-queue",
   "version": "1.0.0",
   "description": "A simple, cross-browser queue that persists between page loads using multiple storage strategies for compatibility",
-  "main": "build/index.js",
+  "main": "build/index.cjs.js",
+  "jsnext:main": "build/index.es6.js",
   "scripts": {
     "build": "./node_modules/rollup/bin/rollup -c rollup.config.cjs.js && ./node_modules/rollup/bin/rollup -c rollup.config.es6.js",
     "lint": "./node_modules/eslint/bin/eslint.js ./src ./tests",
