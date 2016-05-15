@@ -1,6 +1,6 @@
 {
   "name": "persistent-queue",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple, cross-browser queue that persists between page loads using multiple storage strategies for compatibility",
   "main": "build/index.cjs.js",
   "jsnext:main": "build/index.es6.js",
